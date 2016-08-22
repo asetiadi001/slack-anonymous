@@ -3,6 +3,8 @@ var app = express();
 var bodyParser = require('body-parser');
 var request = require('request');
 
+var remainingText;
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -58,7 +60,7 @@ function createResponsePayload(requestBody) {
     }
 
     var target = splitted[0];
-    var remainingText = splitted.slice(1).join(' ');
+    remainingText = splitted.slice(1).join(' ');
     remainingText = remainingText;
 
     if (target === ':here') {
@@ -88,7 +90,7 @@ app.post('/', function(req, response) {
         if(error) {
             response.end('Unable to post your anonymous message: ' + JSON.stringify(error));
         } else {
-            response.end('Delivered! :cop:');
+            response.end(remainingText+'Delivered! :cop:');
         }
 
     });
